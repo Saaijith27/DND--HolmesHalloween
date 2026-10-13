@@ -1,7 +1,6 @@
-// Firebase web configuration for DND-HolmesHalloween.
-// Public client identifiers. Access is controlled by Firebase Authentication and Realtime Database Rules.
+// Firebase web app configuration — public client identifiers.
 export const firebaseConfig = {
-  apiKey: "AIzaSyBKdZjiBujNj7gV3zVHq_Fj1PDA1jRSOY",
+  apiKey: "AIzaSyBKdZzj1bUjNj7gV3zVHq_Fj1PDA1jRSOY",
   authDomain: "dnd-holmeshalloween.firebaseapp.com",
   databaseURL: "https://dnd-holmeshalloween-default-rtdb.firebaseio.com",
   projectId: "dnd-holmeshalloween",
