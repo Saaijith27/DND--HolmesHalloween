@@ -19,7 +19,7 @@
 </div><p id="alert" class="toast hidden" role="alert"></p>
 <footer class="footnote">Inspired by Tamil horror-comedy cinema • Browser prototype v2 • Please use media you have permission to share.</footer>
 </main><script type="module">
-import {firebaseConfig} from './firebase-config.js';
+import {firebaseConfig} from './firebase-config.js?v=4ffb7bc04';
 const $=id=>document.getElementById(id);
 const roles=['Dr. Saravanan — The Clever Detective','Ganga — The Secret Keeper','Senthil — The Nervous Hero','Murugesan — The Comedy King','Chandramukhi — The Mysterious Spirit'];
 roles.forEach(r=>{let o=document.createElement('option');o.value=r;o.textContent=r;$('role').append(o)});
