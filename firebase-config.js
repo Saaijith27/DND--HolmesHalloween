@@ -1,9 +1,12 @@
-// Paste your Firebase web app configuration here. These identifiers are public,
-// but you MUST secure Realtime Database with database.rules.json.
+// Firebase web configuration for DND-HolmesHalloween.
+// Public client identifiers. Access is controlled by Firebase Authentication and Realtime Database Rules.
 export const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  appId: ""
+  apiKey: "AIzaSyBKdZjiBujNj7gV3zVHq_Fj1PDA1jRSOY",
+  authDomain: "dnd-holmeshalloween.firebaseapp.com",
+  databaseURL: "https://dnd-holmeshalloween-default-rtdb.firebaseio.com",
+  projectId: "dnd-holmeshalloween",
+  storageBucket: "dnd-holmeshalloween.firebasestorage.app",
+  messagingSenderId: "740448227156",
+  appId: "1:740448227156:web:8956295e650865b9b882c1",
+  measurementId: "G-R5887GTWTP"
 };
