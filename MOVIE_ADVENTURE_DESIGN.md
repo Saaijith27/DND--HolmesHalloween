@@ -50,3 +50,23 @@ Keep GitHub Pages as static client. Firebase Anonymous Auth and Realtime Databas
 
 ## Current state
 The separate `isometric.html` prototype on this branch is only a **mechanical test room** and does not yet implement this film-flow campaign. Do not advertise it as the finished movie game.
+
+
+## Romance arcs — essential to the campaign
+
+Romance is a core narrative pillar, not optional trivia or a detached minigame.
+
+1. **Senthil and Ganga — present-day marriage:** Begin with their affectionate partnership and playful interactions before the mansion. Their bond gives emotional stakes to the escalating mystery. Add a cooperative trust encounter in which Senthil supports Ganga without treating her as an enemy.
+2. **Saravanan and Durga — romance and comedy:** Introduce Durga as a recurring NPC with her own dialogue and agency. Between investigative scenes, include teasing exchanges, a lighthearted encounter and a later heartfelt beat. Make their relationship develop over the adventure rather than instantly.
+3. **Chandramukhi and Gunasekaran — tragic historical love:** In the historical reconstruction, let players witness their relationship and the jealousy of Vettaiyan. This is the emotional center of the past-life story. Uncover it through clues and a playable flashback, culminating in a dramatic dance sequence.
+
+### Romance-linked interactive scenes
+- Prologue: Senthil and Ganga's relationship established through cinematic dialogue and a two-player trust interaction.
+- Village / palace: Saravanan and Durga meet and exchange playful dialogue, with optional original music cues.
+- Investigation: Senthil can make a Resolve roll to support Ganga; Saravanan and Durga share an important clue-gathering scene.
+- Historical flashback: Chandramukhi and Gunasekaran's relationship is revealed in stages. Players explore their meeting place and discover letters or keepsakes.
+- Finale: Emotional resolution reflects the love stories and preserves the movie's underlying revelation.
+
+**Music:** Add configurable cues for licensed romantic songs where narratively appropriate; avoid assuming a soundtrack song appears at a specific moment without verifying film scene order. Original substitute music must not copy protected melodies or recordings.
+
+**Design guardrail:** Romance choices should affect dialogue, trust and epilogues, but should not let players arbitrarily overwrite the established identities or remove consent and agency from story characters.
