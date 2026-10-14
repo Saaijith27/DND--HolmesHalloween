@@ -4,18 +4,24 @@
       "$room": {
         ".read": "auth != null",
         ".write": "auth != null && (!data.exists() || data.child('hostId').val() === auth.uid)",
+        "players": {"$uid": {".write": "auth != null && auth.uid === $uid", ".validate": "newData.hasChildren(['name','role']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('role').isString()"}},
+        "votes": {"$round": {"$uid": {".write": "auth != null && auth.uid === $uid", ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2"}}}
+      }
+    },
+    "isoRooms": {
+      "$room": {
+        ".read": "auth != null",
+        ".write": "auth != null && ((!data.exists() && newData.child('hostId').val() === auth.uid) || data.child('hostId').val() === auth.uid)",
         "players": {
           "$uid": {
-            ".write": "auth != null && auth.uid === $uid",
-            ".validate": "newData.hasChildren(['name','role']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('role').isString()"
+            ".write": "auth != null && auth.uid === $uid && root.child('isoRooms').child($room).child('status').val() === 'lobby' || auth != null && auth.uid === $uid && data.exists()",
+            ".validate": "newData.hasChildren(['name','role','x','y']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('role').isString() && newData.child('x').isNumber() && newData.child('x').val() >= 0 && newData.child('x').val() < 7 && newData.child('y').isNumber() && newData.child('y').val() >= 0 && newData.child('y').val() < 6"
           }
         },
-        "votes": {
-          "$round": {
-            "$uid": {
-              ".write": "auth != null && auth.uid === $uid",
-              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2"
-            }
+        "events": {
+          "$event": {
+            ".write": "auth != null && !data.exists() && (root.child('isoRooms').child($room).child('hostId').val() === auth.uid || root.child('isoRooms').child($room).child('players').child(auth.uid).exists())",
+            ".validate": "newData.hasChildren(['text','at']) && newData.child('text').isString() && newData.child('text').val().length <= 300 && newData.child('at').isNumber()"
           }
         }
       }
