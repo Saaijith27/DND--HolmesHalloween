@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chandramukhi — Murugesan Cinematic Clip Lab</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#f8e6d0;background:#110d18}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#523043,#110d18 65%)}main{max-width:1040px;margin:auto;padding:20px}
+h1,h2{font-family:Georgia,serif}h1{font-size:clamp(2rem,5vw,3.8rem);margin:5px 0}h2{margin:0 0 12px}
+.eyebrow{color:#edbb7b;letter-spacing:.2em;font-size:.75rem}.panel{background:#251c30;border:1px solid #76556a;border-radius:18px;padding:20px;margin:14px 0}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,1fr);gap:16px}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid #bf8558;background:#6c3d3b;color:#fff1d9;padding:10px 15px;border-radius:10px}button:disabled{opacity:.4;cursor:not-allowed}
+button.primary{background:#af6a32;border-color:#ffd28c}button:focus-visible,input:focus-visible{outline:3px solid #efc184}
+label{font-size:.84rem;color:#e6c59d;display:block;margin:12px 0 4px}input:not([type=file]),select,textarea{width:100%;background:#17121e;border:1px solid #86667c;border-radius:8px;padding:10px;color:white}
+input[type=file]{max-width:100%;font-size:.85rem}textarea{min-height:76px}input[type=range]{width:100%}
+.stage{position:relative;background:radial-gradient(circle at 50% 30%,#64506c,#110e19 75%);min-height:310px;overflow:hidden;border-radius:14px;border:1px solid #916c57;display:flex;align-items:center;justify-content:center;text-align:center}
+.stage video{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:black}
+.stage .fallback{padding:28px;max-width:570px}.stage .face{font-size:clamp(70px,12vw,130px);display:block;filter:drop-shadow(0 12px 15px #000a)}
+.stage.playing .face{animation:shake .22s infinite alternate}.stage .mist{position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent,#ffffff0d,transparent);animation:mist 5s linear infinite}
+@keyframes shake{from{transform:rotate(-10deg) translateX(-8px)}to{transform:rotate(11deg) translateX(8px)}}@keyframes mist{from{transform:translateX(-100%)}to{transform:translateX(100%)}}@keyframes dice{to{transform:rotate(1080deg)}}
+.die{font-size:56px;color:#ffe49f;display:inline-block}.die.rolling{animation:dice .9s ease-out}
+.small{font-size:.82rem;color:#cbb6c4}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.pill{font-size:.72rem;border:1px solid #8c6c62;border-radius:99px;padding:5px 10px;color:#edcda2}
+#subtitle{min-height:72px;background:#120e1bdc;padding:14px;border-radius:10px;margin-top:12px;line-height:1.6}
+#status{color:#ffcc7c;min-height:24px}#clipStatus{color:#cbb6c4}
+@media(max-width:730px){.layout{grid-template-columns:1fr}.stage{min-height:275px}}
+@media(prefers-reduced-motion:reduce){.stage.playing .face,.stage .mist,.die.rolling{animation:none}}
+</style></head><body><main>
+<div class="eyebrow">CINEMATIC EVENT LAB · CM-COMEDY-001</div>
+<h1>Chandramukhi Mansion</h1><p>Murugesan fails a courage check → TV reaction video → Tamil Dungeon Master → story resumes.</p>
+<div class="layout"><section class="panel"><div class="row" style="justify-content:space-between"><h2>📺 TV Scene</h2><span class="pill">Playable prototype</span></div>
+<div class="stage" id="stage"><div class="mist"></div><div class="fallback" id="fallback"><span class="face" aria-hidden="true">😱</span><h2 id="sceneHeading">Murugesan hears a sound!</h2><p id="sceneSub">"Dei Murugesa, poi paaru!"</p></div><video id="movie" playsinline preload="auto" aria-label="Murugesan reaction clip"></video></div>
+<div id="subtitle" role="status" aria-live="polite"><strong>Dungeon Master:</strong><div id="lineTa" lang="ta">முருகேசா! என்ன சத்தம்? போய்ப் பாரு!</div><div id="lineEn" class="small">Murugesan, what's that sound? Go and check!</div></div>
+<div class="row" style="margin:16px 0"><span class="die" id="die">⚄</span><div><div id="status">Ready for the courage check (DC 12).</div><div id="clipStatus" class="small">No clip uploaded: an animated comedy reaction will play instead.</div></div></div>
+<div class="row"><button id="roll" class="primary">🎲 Roll Courage D20</button><button id="replay">↻ Replay event</button><button id="skip">⏭ Skip video</button><button id="audio">🔊 Enable narrator audio</button></div>
+<p class="small">This is a local proof of concept. The roll is intentionally forced to fail when using “Preview failure” so you can test the reaction every time.</p><button id="force">▶ Preview failure</button>
+</section>
+<aside class="panel"><h2>🎞️ Clip editor</h2>
+<label for="clip">Upload an authorized MP4/WebM clip</label><input type="file" id="clip" accept="video/mp4,video/webm">
+<p class="small">For this demo, video stays in your browser. Nothing is uploaded to GitHub or Firebase.</p>
+<label for="dc">Courage difficulty</label><select id="dc"><option value="10">DC 10 — Easy</option><option value="12" selected>DC 12 — Normal</option><option value="15">DC 15 — Hard</option></select>
+<label for="length">Max clip duration</label><select id="length"><option value="5">5 seconds</option><option value="8" selected>8 seconds</option><option value="12">12 seconds</option><option value="15">15 seconds</option></select>
+<label for="volume">Video volume <span id="volumeLabel">75%</span></label><input id="volume" type="range" min="0" max="100" value="75">
+<label for="narration">Post-clip Tamil dialogue</label><textarea id="narration" lang="ta">டேய் முருகேசா! சத்தம் கேட்டதும் ஓடிட்டியா?!</textarea>
+<label for="english">English subtitle</label><textarea id="english">Murugesan! Did you run away as soon as you heard that noise?!</textarea>
+<label><input type="checkbox" id="subs" checked> Show subtitles</label>
+<label for="continuation">Continue after clip</label><select id="continuation"><option value="auto">Automatically continue</option><option value="manual">Wait for host</option></select>
+<button id="copy">Copy event configuration</button>
+</aside></div>
+<p class="small">Privacy: local file uploads are not stored. This branch does not alter the main multiplayer game. Tamil speech depends on available device voices; browsers may block or mispronounce it.</p>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var fileUrl=null,audioEnabled=false,phase='idle',timer=null,clipTimer=null,voiceToken=0;
+$('movie').hidden=true;
+function status(s){$('status').textContent=s}
+function stopTimers(){clearTimeout(timer);clearTimeout(clipTimer);$('movie').pause();if(window.speechSynthesis)window.speechSynthesis.cancel()}
+function speak(s){if(!audioEnabled||!('speechSynthesis' in window))return;try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(s);u.lang='ta-IN';u.rate=.88;var v=window.speechSynthesis.getVoices().find(function(x){return x.lang.toLowerCase().startsWith('ta')});if(v)u.voice=v;window.speechSynthesis.speak(u)}catch(e){status('Tamil narration unavailable on this browser.')}}
+function subtitle(ta,en){$('lineTa').textContent=ta;$('lineEn').textContent=en;$('subtitle').style.display=$('subs').checked?'block':'none'}
+function finish(){if(phase!=='video')return;clearTimeout(clipTimer);$('movie').pause();$('movie').hidden=true;$('fallback').hidden=false;$('stage').classList.remove('playing');phase='narrating';status('Dungeon Master: Tamil comedy punchline');subtitle($('narration').value,$('english').value);speak($('narration').value);timer=setTimeout(function(){phase='finished';status($('continuation').value==='auto'?'✅ The story continues…':'⏸ Waiting for host to continue.');if($('continuation').value==='auto')subtitle('கதை தொடர்கிறது…','The story continues…')},4500)}
+function playReaction(){phase='video';status('🎬 Courage failed — automatic reaction!');$('stage').classList.add('playing');subtitle('ஐயையோ! முருகேசன் பயந்து போயிட்டார்!','Oh no! Murugesan is terrified!');speak('ஐயையோ! முருகேசன் பயந்து போயிட்டார்!');var movie=$('movie');var hasClip=!!fileUrl;
+if(hasClip){movie.hidden=false;$('fallback').hidden=true;movie.currentTime=0;movie.volume=Number($('volume').value)/100;var p=movie.play();if(p&&p.catch)p.catch(function(){movie.hidden=true;$('fallback').hidden=false;$('clipStatus').textContent='Autoplay blocked — animated fallback running.'})}
+else{movie.hidden=true;$('fallback').hidden=false;$('sceneHeading').textContent='AYYAYYO!';$('sceneSub').textContent='Murugesan runs away from the mysterious noise!'}
+clipTimer=setTimeout(finish,Number($('length').value)*1000)}
+function roll(force){if(phase==='rolling'||phase==='video'||phase==='narrating')return;stopTimers();phase='rolling';var el=$('die');el.classList.remove('rolling');void el.offsetWidth;el.classList.add('rolling');status('🎲 Murugesan rolls for Courage…');var result=force?3:Math.floor(Math.random()*20)+1;timer=setTimeout(function(){el.classList.remove('rolling');el.textContent='🎲 '+result;var total=result+0;status('D20 '+result+' + Courage 0 = '+total+' vs DC '+$('dc').value);if(total<Number($('dc').value)){timer=setTimeout(playReaction,650)}else{phase='finished';subtitle('முருகேசன் தைரியமா நின்னுட்டார்!','Murugesan bravely stands his ground!');status('✅ Courage check passed — no reaction video triggered.');speak('முருகேசன் தைரியமா நின்னுட்டார்!')}},900)}
+function reset(){stopTimers();phase='idle';$('stage').classList.remove('playing');$('movie').hidden=true;$('fallback').hidden=false;$('sceneHeading').textContent='Murugesan hears a sound!';$('sceneSub').textContent='"Dei Murugesa, poi paaru!"';$('die').textContent='⚄';status('Ready for the courage check (DC '+$('dc').value+').');subtitle('முருகேசா! என்ன சத்தம்? போய்ப் பாரு!','Murugesan, what is that sound? Go and check!')}
+$('roll').onclick=function(){roll(false)};$('force').onclick=function(){roll(true)};$('replay').onclick=reset;
+$('skip').onclick=function(){if(phase==='video')finish()};$('movie').onended=finish;
+$('dc').onchange=function(){if(phase==='idle')status('Ready for the courage check (DC '+$('dc').value+').')};
+$('subs').onchange=function(){$('subtitle').style.display=$('subs').checked?'block':'none'};
+$('volume').oninput=function(){$('volumeLabel').textContent=this.value+'%';$('movie').volume=Number(this.value)/100};
+$('clip').onchange=function(){if(fileUrl)URL.revokeObjectURL(fileUrl);var file=this.files&&this.files[0];fileUrl=file?URL.createObjectURL(file):null;$('movie').src=fileUrl||'';$('clipStatus').textContent=file?('Loaded locally: '+file.name):'No clip uploaded: animated fallback will play.';reset()};
+$('audio').onclick=function(){audioEnabled=!audioEnabled;$('audio').textContent=audioEnabled?'🔊 Narrator enabled':'🔇 Enable narrator audio';if(audioEnabled)speak('முருகேசா! என்ன சத்தம்? போய்ப் பாரு!');else if(window.speechSynthesis)window.speechSynthesis.cancel()};
+$('copy').onclick=function(){var config={id:'CM-COMEDY-001',trigger:{character:'murugesan',kind:'courage_failure',dc:Number($('dc').value)},media:{type:'video',playback:'auto',maxSeconds:Number($('length').value),volume:Number($('volume').value)/100,assetId:fileUrl?'UPLOAD_ME':null},narrationTa:$('narration').value,subtitleEn:$('english').value,subtitles:$('subs').checked,continueMode:$('continuation').value};var text=JSON.stringify(config,null,2);if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(function(){status('Configuration copied to clipboard.')}).catch(function(){status('Unable to access clipboard.')});else status('Clipboard not available in this browser.')};
+})();
+</script></body></html>
